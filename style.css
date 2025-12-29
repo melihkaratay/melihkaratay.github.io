@@ -279,11 +279,23 @@ section {
 }
 
 .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    display: block;
     margin-top: 3rem;
+}
+
+.about-text {
+    max-width: 100%;
+}
+
+.about-text h3 {
+    color: var(--text-primary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.about-text h3:first-child {
+    margin-top: 0;
 }
 
 .about-text p {
@@ -371,8 +383,15 @@ section {
 
 .project-card h3 {
     color: var(--text-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 1.3rem;
+}
+
+.project-card h4 {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .project-card p {
