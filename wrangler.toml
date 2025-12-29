@@ -1,0 +1,55 @@
+name = "melih-ai-proxy"
+main = "worker.js"
+compatibility_date = "2024-12-18"
+type = "javascript"
+
+[env.production]
+name = "melih-ai-proxy"
+routes = [
+  { pattern = "melih-ai-proxy.melih.workers.dev/*", zone_name = "workers.dev" }
+]
+
+[[env.production.env_vars]]
+vars = { }
+
+[[env.production.env_vars]]
+text_blobs = { }
+
+# Bindings (if needed in future)
+[env.production.bindings]
+
+# ==================== SETUP INSTRUCTIONS ====================
+#
+# This file is for LOCAL DEVELOPMENT with Wrangler CLI
+#
+# To use this locally:
+# 1. Install Wrangler: npm install -g wrangler
+# 2. Run: wrangler dev
+# 3. Your worker will run at http://localhost:8787
+#
+# To deploy to production:
+# 1. Run: wrangler deploy
+# 2. Your worker goes live at: https://melih-ai-proxy.ACCOUNT.workers.dev
+#
+# ==================== ENVIRONMENT SETUP ====================
+#
+# Before deploying, set your OpenAI API key:
+#
+# Option 1: Using Cloudflare Dashboard (RECOMMENDED for production)
+#   1. Go to https://dash.cloudflare.com
+#   2. Workers & Pages > Your Worker > Settings
+#   3. Environment Variables > Add OPENAI_API_KEY
+#
+# Option 2: Using local .env file (for development only)
+#   1. Create a file named .env in your project root
+#   2. Add: OPENAI_API_KEY=sk-proj-xxxxx...
+#   3. Run: wrangler dev
+#   4. NOTE: NEVER commit .env to GitHub!
+#
+# ==================== TESTING ====================
+#
+# Test your worker locally:
+# curl -X POST http://localhost:8787 \
+#   -H "Content-Type: application/json" \
+#   -d '{"messages": [{"role": "user", "content": "Merhaba!"}]}'
+#
