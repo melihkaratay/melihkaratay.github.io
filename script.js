@@ -1,32 +1,3 @@
-// Theme Toggle Functionality
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-
-// Check for saved theme preference or default to 'light' mode
-const currentTheme = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', currentTheme);
-
-// Update icon based on current theme
-updateThemeIcon(currentTheme);
-
-themeToggle.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-});
-
-function updateThemeIcon(theme) {
-    const icon = themeToggle.querySelector('i');
-    if (theme === 'dark') {
-        icon.className = 'fas fa-sun';
-    } else {
-        icon.className = 'fas fa-moon';
-    }
-}
-
 // Smooth Scroll for Navigation Links
 const navLinks = document.querySelectorAll('.nav-link');
 
@@ -37,8 +8,8 @@ navLinks.forEach(link => {
         const targetSection = document.querySelector(targetId);
         
         if (targetSection) {
-            const navbarHeight = document.querySelector('.navbar').offsetHeight;
-            const targetPosition = targetSection.offsetTop - navbarHeight;
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            const targetPosition = targetSection.offsetTop - headerHeight - 20;
             
             window.scrollTo({
                 top: targetPosition,
@@ -46,22 +17,6 @@ navLinks.forEach(link => {
             });
         }
     });
-});
-
-// Navbar Scroll Effect
-const navbar = document.getElementById('navbar');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-    
-    lastScroll = currentScroll;
 });
 
 // Active Navigation Link on Scroll
@@ -102,47 +57,13 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe all project cards
 document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.project-card, .contact-item');
+    const animatedElements = document.querySelectorAll('.project-card, .skill-category');
     
     animatedElements.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
         element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(element);
-    });
-});
-
-// Add hover effect to buttons
-const buttons = document.querySelectorAll('.btn');
-
-buttons.forEach(button => {
-    button.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-3px)';
-    });
-    
-    button.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
-
-// Smooth reveal for hero section
-window.addEventListener('load', () => {
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-        heroContent.style.opacity = '1';
-        heroContent.style.transform = 'translateY(0)';
-    }
-});
-
-// Add parallax effect to hero decoration circles
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const circles = document.querySelectorAll('.circle');
-    
-    circles.forEach((circle, index) => {
-        const speed = 0.5 + (index * 0.2);
-        const yPos = -(scrolled * speed);
-        circle.style.transform = `translateY(${yPos}px)`;
     });
 });
 
@@ -158,23 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Add typing effect to hero title (optional enhancement)
-function typeEffect(element, text, speed = 100) {
-    let i = 0;
-    element.textContent = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
-
 // Console message for developers
-console.log('%c👋 Merhaba!', 'font-size: 20px; font-weight: bold; color: #667eea;');
-console.log('%cBu siteyi incelediğiniz için teşekkürler!', 'font-size: 14px; color: #4a5568;');
-console.log('%cGitHub: https://github.com/melihkaratay', 'font-size: 12px; color: #667eea;');
+console.log('%c👋 Merhaba!', 'font-size: 20px; font-weight: bold; color: #C778DD;');
+console.log('%cBu siteyi incelediğiniz için teşekkürler!', 'font-size: 14px; color: #ABB2BF;');
+console.log('%cGitHub: https://github.com/melihkaratay', 'font-size: 12px; color: #C778DD;');

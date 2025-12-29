@@ -7,123 +7,164 @@
     <meta name="keywords" content="Melih Karatay, yazılım geliştirici, .NET, C#, IoT, MES, endüstriyel otomasyon, React, WPF, bilgisayar mühendisi">
     <meta name="author" content="Melih Karatay">
     <title>Melih Karatay - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <header class="header">
         <div class="container">
-            <div class="nav-brand">
-                <h2>Melih Karatay</h2>
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-text">Melih Karatay</span>
+                </div>
+                <nav class="nav">
+                    <a href="#home" class="nav-link"><span class="hash">#</span>home</a>
+                    <a href="#about-me" class="nav-link"><span class="hash">#</span>about-me</a>
+                    <a href="#skills" class="nav-link"><span class="hash">#</span>skills</a>
+                    <a href="#projects" class="nav-link"><span class="hash">#</span>projects</a>
+                    <a href="#contacts" class="nav-link"><span class="hash">#</span>contacts</a>
+                </nav>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Ana Sayfa</a></li>
-                <li><a href="#about" class="nav-link">Hakkımda</a></li>
-                <li><a href="#projects" class="nav-link">Projeler</a></li>
-                <li><a href="#contact" class="nav-link">İletişim</a></li>
-            </ul>
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Merhaba, Ben <span class="highlight">Melih Karatay</span></h1>
-                <p class="hero-subtitle">Bilgisayar Mühendisi | Kıdemli Yazılım Geliştirici</p>
-                <p class="hero-description">.NET Mimari • Endüstriyel IoT • MES Sistemleri • Full Stack Çözümler</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">Projelerimi Gör</a>
-                    <a href="#contact" class="btn btn-secondary">İletişime Geç</a>
+            <div class="hero-wrapper">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Melih Karatay,<br>
+                        <span class="typed-text">Bilgisayar Mühendisi</span> ve<br>
+                        <span class="highlight">Kıdemli Yazılım Geliştirici</span>
+                    </h1>
+                    <p class="hero-description">
+                        .NET Mimari • Endüstriyel IoT • MES Sistemleri • Full Stack Çözümler
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#contacts" class="btn btn-primary">İletişime geç!</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="code-box">
+                        <div class="code-box-header">
+                            <span class="code-dot"></span>
+                            <span class="code-dot"></span>
+                            <span class="code-dot"></span>
+                        </div>
+                        <div class="code-content">
+                            <div class="code-line"><span class="code-comment">// 8+ yıl deneyim</span></div>
+                            <div class="code-line"><span class="code-keyword">const</span> developer = {</div>
+                            <div class="code-line">  <span class="code-property">name</span>: <span class="code-string">"Melih Karatay"</span>,</div>
+                            <div class="code-line">  <span class="code-property">focus</span>: [<span class="code-string">".NET"</span>, <span class="code-string">"IoT"</span>, <span class="code-string">"MES"</span>],</div>
+                            <div class="code-line">  <span class="code-property">passion</span>: <span class="code-string">"Industrial Solutions"</span></div>
+                            <div class="code-line">};</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hero-decoration">
-            <div class="circle circle-1"></div>
-            <div class="circle circle-2"></div>
-            <div class="circle circle-3"></div>
+            <div class="hero-status">
+                <div class="status-indicator"></div>
+                <span>Aktif olarak çalışıyorum</span>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="about" id="about-me">
         <div class="container">
-            <h2 class="section-title">Hakkımda</h2>
+            <h2 class="section-title"><span class="hash">#</span>about-me</h2>
+            <div class="section-line"></div>
+            
             <div class="about-content">
                 <div class="about-text">
-                    <h3>🚀 Profesyonel Özet</h3>
-                    <p>8+ yıl deneyime sahip bir Bilgisayar Mühendisiyim. Uzmanlığım; C# ve .NET ekosisteminde ölçeklenebilir kurumsal mimariler kurmak, üretim sahasındaki makineleri (IoT) yazılımla konuşturmak ve ham veriyi anlamlı yönetim panellerine dönüştürmektir.</p>
-                    <p>Standart yazılım geliştirme süreçlerinin ötesinde; MES (Üretim Yönetim Sistemleri), SCADA/HMI entegrasyonları ve ERP haberleşmeleri konusunda derin saha tecrübesine sahibim. "Kodun sahada çalışması" ilkesiyle, hem arka planda güçlü algoritmalar hem de ön yüzde kullanıcı dostu arayüzler geliştiriyorum.</p>
-                    
-                    <div class="skills">
-                        <h3>💻 Backend & Yazılım Mimarisi</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">C#</span>
-                            <span class="skill-tag">SQL</span>
-                            <span class="skill-tag">T-SQL</span>
-                            <span class="skill-tag">.NET 5/6/7/8+</span>
-                            <span class="skill-tag">.NET Core</span>
-                            <span class="skill-tag">.NET Framework</span>
-                            <span class="skill-tag">ASP.NET Core Web API</span>
-                            <span class="skill-tag">MVC</span>
-                            <span class="skill-tag">RESTful Services</span>
-                            <span class="skill-tag">OOP</span>
-                            <span class="skill-tag">SOLID</span>
-                            <span class="skill-tag">Microservices</span>
-                        </div>
-                    </div>
-
-                    <div class="skills">
-                        <h3>🖥️ Modern Web & Desktop</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">React.js</span>
-                            <span class="skill-tag">Redux</span>
-                            <span class="skill-tag">WPF (MVVM)</span>
-                            <span class="skill-tag">WinForms</span>
-                            <span class="skill-tag">Xamarin Forms</span>
-                            <span class="skill-tag">.NET MAUI</span>
-                            <span class="skill-tag">Flutter</span>
-                            <span class="skill-tag">Material UI</span>
-                            <span class="skill-tag">Bootstrap</span>
-                            <span class="skill-tag">HTML5/CSS3</span>
-                        </div>
-                    </div>
-
-                    <div class="skills">
-                        <h3>🏭 Endüstriyel IoT & MES</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Modbus TCP/RTU</span>
-                            <span class="skill-tag">MQTT</span>
-                            <span class="skill-tag">TCP/IP Socket</span>
-                            <span class="skill-tag">PLC Veri Okuma</span>
-                            <span class="skill-tag">HMI (Pro-face)</span>
-                            <span class="skill-tag">SCADA</span>
-                            <span class="skill-tag">OEE</span>
-                        </div>
-                    </div>
-
-                    <div class="skills">
-                        <h3>🗄️ Veri Tabanı & DevOps</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">MS SQL Server</span>
-                            <span class="skill-tag">MongoDB</span>
-                            <span class="skill-tag">InfluxDB</span>
-                            <span class="skill-tag">Docker</span>
-                            <span class="skill-tag">Git/GitHub</span>
-                            <span class="skill-tag">CI/CD</span>
-                            <span class="skill-tag">IIS</span>
-                            <span class="skill-tag">Grafana</span>
-                            <span class="skill-tag">FastReport</span>
+                    <h3 class="about-greeting">Merhaba!</h3>
+                    <p>
+                        8+ yıl deneyime sahip bir Bilgisayar Mühendisiyim. Uzmanlığım; C# ve .NET ekosisteminde 
+                        ölçeklenebilir kurumsal mimariler kurmak, üretim sahasındaki makineleri (IoT) yazılımla 
+                        konuşturmak ve ham veriyi anlamlı yönetim panellerine dönüştürmektir.
+                    </p>
+                    <p>
+                        Standart yazılım geliştirme süreçlerinin ötesinde; MES (Üretim Yönetim Sistemleri), 
+                        SCADA/HMI entegrasyonları ve ERP haberleşmeleri konusunda derin saha tecrübesine sahibim. 
+                        <strong>"Kodun sahada çalışması"</strong> ilkesiyle, hem arka planda güçlü algoritmalar 
+                        hem de ön yüzde kullanıcı dostu arayüzler geliştiriyorum.
+                    </p>
+                    <a href="#contacts" class="btn btn-outline">İletişime Geç →</a>
+                </div>
+                <div class="about-image">
+                    <div class="image-frame">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
                         </div>
                     </div>
                 </div>
-                <div class="about-image">
-                    <div class="profile-placeholder">
-                        <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section-title"><span class="hash">#</span>skills</h2>
+            <div class="section-line"></div>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Backend & Mimari</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">.NET Core</span>
+                        <span class="skill-tag">.NET 5/6/7/8+</span>
+                        <span class="skill-tag">ASP.NET Web API</span>
+                        <span class="skill-tag">MVC</span>
+                        <span class="skill-tag">RESTful</span>
+                        <span class="skill-tag">Microservices</span>
+                        <span class="skill-tag">SOLID</span>
+                        <span class="skill-tag">OOP</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Frontend & Desktop</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Redux</span>
+                        <span class="skill-tag">WPF/MVVM</span>
+                        <span class="skill-tag">WinForms</span>
+                        <span class="skill-tag">Xamarin</span>
+                        <span class="skill-tag">.NET MAUI</span>
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">HTML/CSS/JS</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Endüstriyel IoT & MES</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Modbus TCP/RTU</span>
+                        <span class="skill-tag">MQTT</span>
+                        <span class="skill-tag">TCP/IP Socket</span>
+                        <span class="skill-tag">PLC Entegrasyon</span>
+                        <span class="skill-tag">HMI/SCADA</span>
+                        <span class="skill-tag">OEE</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Database & DevOps</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MS SQL Server</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">InfluxDB</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git/GitHub</span>
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">Grafana</span>
                     </div>
                 </div>
             </div>
@@ -133,68 +174,61 @@
     <!-- Projects Section -->
     <section class="projects" id="projects">
         <div class="container">
-            <h2 class="section-title">Deneyim & Projeler</h2>
+            <h2 class="section-title"><span class="hash">#</span>projects</h2>
+            <div class="section-line"></div>
             <p class="section-subtitle">Profesyonel kariyerim boyunca gerçekleştirdiğim önemli projeler</p>
+            
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-industry"></i>
+                    <div class="project-tech-stack">
+                        <span class="tech-badge">C#</span>
+                        <span class="tech-badge">Modbus</span>
+                        <span class="tech-badge">InfluxDB</span>
+                        <span class="tech-badge">WPF</span>
                     </div>
-                    <h3>Bonna Premium Porselen</h3>
-                    <h4>Dijital Dönüşüm & Yazılım Uzmanı</h4>
-                    <p>Üretim sahasının dijital ikizini oluşturmak için uçtan uca IoT mimarisi kuruldu. PLC'lerden Modbus ile alınan veriler C# Worker Service'ler ile işlenip InfluxDB ve MSSQL'e yazıldı.</p>
-                    <div class="project-tags">
-                        <span class="tag">C#</span>
-                        <span class="tag">Modbus</span>
-                        <span class="tag">InfluxDB</span>
-                        <span class="tag">WPF</span>
-                        <span class="tag">Grafana</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Yurtbay Seramik</h3>
-                    <h4>Yazılım Geliştirme Mühendisi</h4>
-                    <p>Kurumsal ERP ve üretim sistemleri entegrasyonu. Legacy WebForms projeleri .NET Core mimarisine taşınarak Dockerize edildi. SAP ile konuşan mobil el terminali uygulamaları geliştirildi.</p>
-                    <div class="project-tags">
-                        <span class="tag">.NET Core</span>
-                        <span class="tag">Docker</span>
-                        <span class="tag">SAP</span>
-                        <span class="tag">Xamarin</span>
-                        <span class="tag">ERP</span>
+                    <div class="project-content">
+                        <h3 class="project-title">Bonna Premium Porselen</h3>
+                        <p class="project-role">Dijital Dönüşüm & Yazılım Uzmanı</p>
+                        <p class="project-description">
+                            Üretim sahasının dijital ikizini oluşturmak için uçtan uca IoT mimarisi kuruldu. 
+                            PLC'lerden Modbus ile alınan veriler C# Worker Service'ler ile işlenip InfluxDB ve MSSQL'e yazıldı. 
+                            Grafana üzerinde canlı izlenen fabrika panelleri ve WPF tabanlı operatör veri giriş ekranları geliştirildi.
+                        </p>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-building"></i>
+                    <div class="project-tech-stack">
+                        <span class="tech-badge">.NET Core</span>
+                        <span class="tech-badge">Docker</span>
+                        <span class="tech-badge">SAP</span>
+                        <span class="tech-badge">Xamarin</span>
                     </div>
-                    <h3>Eskişehir Ticaret Odası</h3>
-                    <h4>Yazılım Geliştirme Mühendisi</h4>
-                    <p>Kamu entegrasyonları ve yüksek trafikli web uygulamaları. SOAP/REST servisler aracılığıyla NVİ (Nüfus ve Vatandaşlık İşleri) ve KPS entegrasyonları sağlandı.</p>
-                    <div class="project-tags">
-                        <span class="tag">ASP.NET</span>
-                        <span class="tag">SOAP/REST</span>
-                        <span class="tag">KPS</span>
-                        <span class="tag">Web Services</span>
+                    <div class="project-content">
+                        <h3 class="project-title">Yurtbay Seramik</h3>
+                        <p class="project-role">Yazılım Geliştirme Mühendisi</p>
+                        <p class="project-description">
+                            Kurumsal ERP ve üretim sistemleri entegrasyonu. Legacy WebForms projeleri .NET Core mimarisine 
+                            taşınarak Dockerize edildi. SAP ile konuşan mobil el terminali uygulamaları geliştirildi. 
+                            Kalite kontrol süreçleri dijitalleşti, kağıt kullanımı %80 azaltıldı.
+                        </p>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-palette"></i>
+                    <div class="project-tech-stack">
+                        <span class="tech-badge">ASP.NET</span>
+                        <span class="tech-badge">SOAP/REST</span>
+                        <span class="tech-badge">KPS</span>
                     </div>
-                    <h3>Tasarım & Multimedya</h3>
-                    <h4>Bonus Yetkinlik</h4>
-                    <p>Mühendislik çözümlerini görsel estetikle sunma yetkinliği. Adobe XD/Figma ile UI/UX prototipleme, Adobe Premiere/After Effects ile kurumsal tanıtım ve eğitim videoları.</p>
-                    <div class="project-tags">
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Adobe XD</span>
-                        <span class="tag">Figma</span>
-                        <span class="tag">Video Editing</span>
+                    <div class="project-content">
+                        <h3 class="project-title">Eskişehir Ticaret Odası</h3>
+                        <p class="project-role">Yazılım Geliştirme Mühendisi</p>
+                        <p class="project-description">
+                            Kamu entegrasyonları ve yüksek trafikli web uygulamaları. SOAP/REST servisler aracılığıyla 
+                            NVİ (Nüfus ve Vatandaşlık İşleri) ve KPS entegrasyonları sağlandı. 
+                            Online üye işlem merkezi ve randevu sistemleri devreye alındı.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -202,49 +236,39 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="contacts" id="contacts">
         <div class="container">
-            <h2 class="section-title">İletişim</h2>
-            <p class="section-subtitle">Benimle iletişime geçmek için aşağıdaki kanalları kullanabilirsiniz</p>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>E-posta</h3>
-                            <p>melihkaratay@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Telefon</h3>
-                            <p>+90 (555) 123 45 67</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Konum</h3>
-                            <p>İstanbul, Türkiye</p>
-                        </div>
-                    </div>
+            <h2 class="section-title"><span class="hash">#</span>contacts</h2>
+            <div class="section-line"></div>
+            
+            <div class="contacts-content">
+                <div class="contacts-text">
+                    <p>Benimle iletişime geçmek için aşağıdaki kanalları kullanabilirsiniz.</p>
                 </div>
-                <div class="social-links">
-                    <h3>Sosyal Medya</h3>
-                    <div class="social-icons">
-                        <a href="https://github.com/melihkaratay" class="social-icon" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://linkedin.com/in/melihkaratay" class="social-icon" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
+                
+                <div class="contacts-box">
+                    <h3>İletişim Bilgileri</h3>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:melihkaratay@gmail.com">melihkaratay@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>İstanbul, Türkiye</span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <h4>Sosyal Medya</h4>
+                        <div class="social-icons">
+                            <a href="https://github.com/melihkaratay" class="social-icon" target="_blank" rel="noopener noreferrer" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/melihkaratay" class="social-icon" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,8 +278,17 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Melih Karatay. Tüm hakları saklıdır.</p>
-            <p>GitHub Pages ile ❤️ ile yapıldı</p>
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <span>Melih Karatay</span>
+                    </div>
+                    <p class="footer-email">melihkaratay@gmail.com</p>
+                </div>
+                <div class="footer-right">
+                    <p>&copy; 2024 Melih Karatay. Tüm hakları saklıdır.</p>
+                </div>
+            </div>
         </div>
     </footer>
 
