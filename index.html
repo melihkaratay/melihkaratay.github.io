@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Melih Karatay - Kişisel Portfolio Web Sitesi">
+    <meta name="keywords" content="portfolio, web developer, yazılım geliştirici">
+    <meta name="author" content="Melih Karatay">
+    <title>Melih Karatay - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h2>Melih Karatay</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="#about" class="nav-link">Hakkımda</a></li>
+                <li><a href="#projects" class="nav-link">Projeler</a></li>
+                <li><a href="#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Merhaba, Ben <span class="highlight">Melih Karatay</span></h1>
+                <p class="hero-subtitle">Yazılım Geliştirici & Teknoloji Tutkunu</p>
+                <p class="hero-description">Modern web teknolojileri ile kullanıcı odaklı çözümler geliştiriyorum.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">Projelerimi Gör</a>
+                    <a href="#contact" class="btn btn-secondary">İletişime Geç</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-decoration">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">Hakkımda</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Merhaba! Ben Melih Karatay, yazılım geliştirme alanında tutkulu bir profesyonelim.</p>
+                    <p>Modern web teknolojileri, kullanıcı deneyimi ve temiz kod yazma konularında kendimi sürekli geliştiriyorum. Projelerimde performans, güvenlik ve kullanılabilirlik prensiplerini ön planda tutuyorum.</p>
+                    <div class="skills">
+                        <h3>Yetenekler</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Responsive Design</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="profile-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">Projeler</h2>
+            <p class="section-subtitle">Son zamanlarda üzerinde çalıştığım bazı projeler</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Web Uygulaması</h3>
+                    <p>Modern web teknolojileri ile geliştirilmiş responsive web uygulaması. React ve Node.js kullanılarak oluşturuldu.</p>
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">MongoDB</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobil Uygulama</h3>
+                    <p>Kullanıcı dostu arayüzü ve performansı ile öne çıkan cross-platform mobil uygulama projesi.</p>
+                    <div class="project-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Redux</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Otomasyon Aracı</h3>
+                    <p>İş süreçlerini otomatikleştiren ve verimliliği artıran Python tabanlı otomasyon çözümü.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Selenium</span>
+                        <span class="tag">API</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Dashboard Uygulaması</h3>
+                    <p>Veri görselleştirme ve analitik özellikleri sunan interaktif dashboard uygulaması.</p>
+                    <div class="project-tags">
+                        <span class="tag">Vue.js</span>
+                        <span class="tag">D3.js</span>
+                        <span class="tag">REST API</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">İletişim</h2>
+            <p class="section-subtitle">Benimle iletişime geçmek için aşağıdaki kanalları kullanabilirsiniz</p>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>E-posta</h3>
+                            <p>melihkaratay@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Telefon</h3>
+                            <p>+90 (555) 123 45 67</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Konum</h3>
+                            <p>İstanbul, Türkiye</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <h3>Sosyal Medya</h3>
+                    <div class="social-icons">
+                        <a href="https://github.com/melihkaratay" class="social-icon" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-icon" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-icon" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Melih Karatay. Tüm hakları saklıdır.</p>
+            <p>GitHub Pages ile ❤️ ile yapıldı</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
