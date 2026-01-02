@@ -1,110 +1,67 @@
 /**
- * Cloudflare Worker - Secure OpenAI Proxy
- * 
- * This worker acts as a secure proxy between your GitHub Pages frontend and OpenAI API.
- * It keeps your API key safe by storing it in Cloudflare's encrypted environment variables.
- * 
- * Security Features:
- * - CORS restrictions (only allows requests from your domain)
- * - API key stored in environment variables (never exposed to client)
- * - Request validation and error handling
- * - Rate limiting ready (can be enhanced)
+ * Cloudflare Worker - Unrestricted OpenAI Proxy
+ * * Özellikler:
+ * - SYSTEM_PROMPT YOK (Ham model cevabı)
+ * - CORS KISITLAMASI YOK (Herkes erişebilir)
+ * - Loglama sistemi aktif (Admin takibi için)
  */
 
-// Define allowed origins - ONLY your domain
-const ALLOWED_ORIGINS = [
-    'https://melihkaratay.github.io',
-    'http://localhost:3000', // For local development
-    'http://localhost:8000'   // For local development
-];
-
-// System prompt for the AI assistant
-const SYSTEM_PROMPT = "You are Melih's portfolio assistant. Answer in Turkish. Melih is a Computer Engineer and Digital Transformation Specialist skilled in .NET, C#, SQL Server, and Industrial IoT. Keep answers professional, concise, and friendly.";
-
-// Log retention (30 days)
+// Log saklama süresi (30 gün)
 const LOG_RETENTION_SECONDS = 60 * 60 * 24 * 30;
 
-/**
- * Main worker event handler
- */
 export default {
     async fetch(request, env, ctx) {
+        
+        // 1. HERKESE AÇIK CORS AYARLARI (Kısıtlama Yok)
+        const corsHeaders = {
+            "Access-Control-Allow-Origin": "*", // <--- YILDIZ: Her yerden erişime izin ver
+            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+        };
+
         const url = new URL(request.url);
 
-        // Admin log retrieval endpoint
-        if (url.pathname === '/logs') {
-            return handleLogsRequest(request, env);
+        // 2. LOGLARI OKUMA (Admin Paneli - /logs)
+        // Burası sadece sizin logları okumanız için, mesajlaşmayı etkilemez.
+        if (url.pathname === '/logs' && request.method === 'GET') {
+            return handleLogsRequest(request, env, corsHeaders);
         }
 
-        // Handle CORS preflight requests
+        // 3. OPTIONS İSTEKLERİ (Tarayıcı Ön Kontrolü)
         if (request.method === 'OPTIONS') {
-            return handleCorsPreFlight(request, env);
+            return new Response(null, { status: 204, headers: corsHeaders });
         }
 
-        // Only accept POST requests
+        // 4. SADECE POST İSTEKLERİNİ KABUL ET
         if (request.method !== 'POST') {
-            return new Response(
-                JSON.stringify({ error: 'Method not allowed' }),
-                {
-                    status: 405,
-                    headers: { 'Content-Type': 'application/json' }
-                }
-            );
-        }
-
-        // Verify origin
-        const origin = request.headers.get('Origin');
-        if (!isOriginAllowed(origin, env)) {
-            return new Response(
-                JSON.stringify({ error: 'Unauthorized origin' }),
-                {
-                    status: 403,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': origin || '*'
-                    }
-                }
-            );
+            return new Response(JSON.stringify({ error: 'Method not allowed' }), { 
+                status: 405, headers: { 'Content-Type': 'application/json', ...corsHeaders } 
+            });
         }
 
         const startedAt = Date.now();
+        let requestBody = {};
 
         try {
-            // Parse request body
-            const requestBody = await request.json();
+            // İsteği ayrıştır
+            requestBody = await request.json();
             const { messages, sessionId, meta } = requestBody;
 
-            // Validate messages
+            // Basit doğrulama (Sadece boş olmasın diye)
             if (!messages || !Array.isArray(messages)) {
-                return new Response(
-                    JSON.stringify({ error: 'Invalid request format' }),
-                    {
-                        status: 400,
-                        headers: { 'Content-Type': 'application/json' }
-                    }
-                );
+                throw new Error('Messages array is required');
             }
 
-            // Get API key from environment (set in Cloudflare dashboard)
+            // API Key Kontrolü
             const apiKey = env.OPENAI_API_KEY;
             if (!apiKey) {
-                console.error('OpenAI API key not configured');
-                return new Response(
-                    JSON.stringify({ error: 'Server configuration error' }),
-                    {
-                        status: 500,
-                        headers: { 'Content-Type': 'application/json' }
-                    }
-                );
+                throw new Error('Server API Key eksik');
             }
 
-            // Prepare messages with system prompt
-            const fullMessages = [
-                { role: 'system', content: SYSTEM_PROMPT },
-                ...messages
-            ];
-
-            // Call OpenAI API
+            // --- DEĞİŞİKLİK BURADA: SYSTEM PROMPT EKLENMİYOR ---
+            // Gelen mesajları olduğu gibi iletiyoruz.
+            // Kullanıcı ne gönderdiyse o gider.
+            
             const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -112,239 +69,97 @@ export default {
                     'Authorization': `Bearer ${apiKey}`
                 },
                 body: JSON.stringify({
-                    model: 'gpt-3.5-turbo',
-                    messages: fullMessages,
-                    temperature: 0.7,
-                    max_tokens: 500
+                    model: requestBody.model || 'gpt-3.5-turbo', // Kullanıcı model seçebilir veya varsayılan
+                    messages: messages, // <--- Ham mesajlar
+                    temperature: requestBody.temperature || 0.7, // İstenirse dışarıdan ayarlanabilir
+                    max_tokens: requestBody.max_tokens || 1000
                 })
             });
 
-            // Handle OpenAI response
+            // OpenAI Cevabını İşle
             if (!openaiResponse.ok) {
                 const errorData = await openaiResponse.json();
-                console.error('OpenAI API error:', errorData);
-                return new Response(
-                    JSON.stringify({
-                        error: 'OpenAI API error',
-                        details: errorData.error?.message || 'Unknown error'
-                    }),
-                    {
-                        status: openaiResponse.status,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': origin
-                        }
-                    }
-                );
+                throw new Error(errorData.error?.message || 'OpenAI Error');
             }
 
             const responseData = await openaiResponse.json();
             const botMessage = responseData.choices?.[0]?.message?.content;
 
-            if (!botMessage) {
-                throw new Error('No message content in OpenAI response');
-            }
-
+            // LOGLAMA (Başarılı İşlem)
             ctx.waitUntil(logInteraction(env, {
                 type: 'chat-success',
-                origin,
-                sessionId: formatSessionId(sessionId),
-                meta: normalizeMeta(meta, request),
+                sessionId: sessionId || 'anonymous',
                 requestMessages: messages,
                 responseMessage: botMessage,
-                userAgent: request.headers.get('user-agent'),
-                clientIp: getClientIp(request),
+                clientIp: request.headers.get('cf-connecting-ip'),
                 durationMs: Date.now() - startedAt
             }));
 
-            // Return success response
-            return new Response(
-                JSON.stringify({
-                    success: true,
-                    message: botMessage
-                }),
-                {
-                    status: 200,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': origin,
-                        'Cache-Control': 'no-cache'
-                    }
-                }
-            );
-        } catch (error) {
-            console.error('Worker error:', error);
+            // Başarılı Cevap Dön
+            return new Response(JSON.stringify(responseData), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json', ...corsHeaders }
+            });
 
+        } catch (error) {
+            // LOGLAMA (Hata Durumu)
             ctx.waitUntil(logInteraction(env, {
                 type: 'chat-error',
-                origin,
-                sessionId: 'unknown',
-                meta: normalizeMeta(null, request),
-                error: error?.message || 'Unknown error',
-                userAgent: request.headers.get('user-agent'),
-                clientIp: getClientIp(request),
+                error: error.message,
+                clientIp: request.headers.get('cf-connecting-ip'),
                 durationMs: Date.now() - startedAt
             }));
 
-            return new Response(
-                JSON.stringify({
-                    error: 'Internal server error',
-                    message: error.message
-                }),
-                {
-                    status: 500,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': origin || '*'
-                    }
-                }
-            );
+            return new Response(JSON.stringify({ error: error.message }), {
+                status: 500,
+                headers: { 'Content-Type': 'application/json', ...corsHeaders }
+            });
         }
     }
 };
 
 /**
- * Handle CORS preflight requests
- */
-function handleCorsPreFlight(request, env) {
-    const origin = request.headers.get('Origin');
-    
-    // Check if origin is allowed
-    if (!isOriginAllowed(origin, env)) {
-        return new Response(null, { status: 403 });
-    }
-
-    return new Response(null, {
-        status: 204,
-        headers: {
-            'Access-Control-Allow-Origin': origin,
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            'Access-Control-Max-Age': '86400'
-        }
-    });
-}
-
-/**
- * Combine built-in and environment-provided allowed origins.
- */
-function getAllowedOrigins(env) {
-    const dynamicOrigins = env?.ALLOWED_ORIGINS
-        ? env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean)
-        : [];
-
-    const merged = new Set([...ALLOWED_ORIGINS, ...dynamicOrigins]);
-    return Array.from(merged);
-}
-
-function isOriginAllowed(origin, env) {
-    if (!origin) return false;
-    return getAllowedOrigins(env).includes(origin);
-}
-
-/**
- * Persist a lightweight interaction log to KV if available.
+ * Logları KV'ye kaydetme fonksiyonu
  */
 async function logInteraction(env, log) {
-    if (!env?.CHAT_LOGS || typeof env.CHAT_LOGS.put !== 'function') {
-        return;
-    }
+    if (!env?.CHAT_LOGS) return; // KV bağlı değilse geç
 
-    const key = `log:${Date.now()}:${crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2, 10)}`;
-    const record = {
-        ...log,
-        timestamp: new Date().toISOString()
-    };
+    const key = `log:${Date.now()}:${Math.random().toString(36).slice(2, 10)}`;
+    const record = { ...log, timestamp: new Date().toISOString() };
 
     try {
-        await env.CHAT_LOGS.put(key, JSON.stringify(record), {
-            expirationTtl: LOG_RETENTION_SECONDS
-        });
-    } catch (err) {
-        console.error('Logging failed', err);
+        await env.CHAT_LOGS.put(key, JSON.stringify(record), { expirationTtl: LOG_RETENTION_SECONDS });
+    } catch (e) {
+        console.error("Log hatasi:", e);
     }
 }
 
 /**
- * Admin endpoint to fetch recent logs (requires ADMIN_TOKEN).
+ * Admin Loglarını Okuma Fonksiyonu
  */
-async function handleLogsRequest(request, env) {
-    if (!env?.CHAT_LOGS) {
-        return new Response(
-            JSON.stringify({ error: 'Logging storage not configured' }),
-            { status: 500, headers: { 'Content-Type': 'application/json' } }
-        );
-    }
+async function handleLogsRequest(request, env, corsHeaders) {
+    if (!env?.CHAT_LOGS) return new Response("KV yok", { status: 500, headers: corsHeaders });
 
-    const adminToken = env.ADMIN_TOKEN;
-    const providedToken = request.headers.get('X-Admin-Token') || new URL(request.url).searchParams.get('token');
-
-    if (!adminToken || providedToken !== adminToken) {
-        return new Response(
-            JSON.stringify({ error: 'Unauthorized' }),
-            { status: 401, headers: { 'Content-Type': 'application/json' } }
-        );
+    // Admin Token Kontrolü (Loglarınızı başkası okumasın diye burası kalsın)
+    const token = request.headers.get('X-Admin-Token');
+    if (token !== env.ADMIN_TOKEN) {
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders });
     }
 
     const url = new URL(request.url);
-    const limitParam = parseInt(url.searchParams.get('limit') || '50', 10);
-    const limit = Number.isFinite(limitParam) ? Math.min(Math.max(limitParam, 1), 200) : 50;
+    const limit = parseInt(url.searchParams.get('limit') || '50');
 
     const { keys } = await env.CHAT_LOGS.list({ prefix: 'log:', limit });
     const logs = [];
 
     for (const key of keys) {
         const value = await env.CHAT_LOGS.get(key.name);
-        if (value) {
-            try {
-                logs.push(JSON.parse(value));
-            } catch (err) {
-                console.error('Failed to parse log entry', err);
-            }
-        }
+        if (value) logs.push(JSON.parse(value));
     }
 
     logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-    return new Response(
-        JSON.stringify({ logs }),
-        {
-            status: 200,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': request.headers.get('Origin') || '*'
-            }
-        }
-    );
-}
-
-function normalizeMeta(meta, request) {
-    if (!meta || typeof meta !== 'object') {
-        return {
-            language: request.headers.get('Accept-Language') || 'unknown',
-            page: null,
-            referrer: request.headers.get('Referer') || null
-        };
-    }
-
-    return {
-        sessionId: formatSessionId(meta.sessionId),
-        userAgent: meta.userAgent?.toString().slice(0, 500),
-        language: meta.language || request.headers.get('Accept-Language') || 'unknown',
-        timezone: meta.timezone || null,
-        page: meta.page || null,
-        referrer: meta.referrer || request.headers.get('Referer') || null
-    };
-}
-
-function formatSessionId(sessionId) {
-    if (!sessionId || typeof sessionId !== 'string') return 'anonymous';
-    return sessionId.slice(0, 120);
-}
-
-function getClientIp(request) {
-    return request.headers.get('cf-connecting-ip')
-        || request.headers.get('x-forwarded-for')
-        || request.headers.get('x-real-ip')
-        || 'unknown';
+    return new Response(JSON.stringify({ logs }), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+    });
 }
