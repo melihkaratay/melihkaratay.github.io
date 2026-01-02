@@ -15,11 +15,9 @@ routes = [
   { pattern = "melih-ai-proxy.melih.workers.dev/*", zone_name = "workers.dev" }
 ]
 
-[[env.production.env_vars]]
-vars = { }
-
-[[env.production.env_vars]]
-text_blobs = { }
+# Variables (non-sensitive)
+[vars]
+ALLOWED_ORIGINS = "https://melihkaratay.github.io,http://localhost:3000,http://localhost:8000"
 
 # Environment variables and secrets should be set via Cloudflare Dashboard:
 # - OPENAI_API_KEY (required) 
