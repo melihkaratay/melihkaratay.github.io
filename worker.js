@@ -31,8 +31,8 @@ export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
 
-        // Admin log retrieval endpoint
-        if (url.pathname === '/logs') {
+        // Admin log retrieval endpoint (GET only)
+        if (url.pathname === '/logs' && request.method === 'GET') {
             return handleLogsRequest(request, env);
         }
 
@@ -41,7 +41,7 @@ export default {
             return handleCorsPreFlight(request, env);
         }
 
-        // Only accept POST requests
+        // Only accept POST requests for chat endpoint
         if (request.method !== 'POST') {
             return new Response(
                 JSON.stringify({ error: 'Method not allowed' }),

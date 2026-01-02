@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Log Viewer - Melih AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        input[type="password"], input[type="number"] {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .status {
+            padding: 15px 30px;
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            margin: 20px 30px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .status.error {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+        }
+
+        .logs-container {
+            padding: 30px;
+        }
+
+        .log-entry {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .log-entry:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .log-type {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .log-type.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .log-type.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .log-timestamp {
+            color: #6c757d;
+            font-size: 13px;
+        }
+
+        .log-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .log-detail {
+            font-size: 13px;
+        }
+
+        .log-detail strong {
+            display: block;
+            color: #495057;
+            margin-bottom: 5px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .log-detail span {
+            color: #212529;
+            word-break: break-word;
+        }
+
+        .log-messages {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-left: 20%;
+        }
+
+        .message.assistant {
+            background: #f1f3f5;
+            color: #212529;
+            margin-right: 20%;
+        }
+
+        .message-label {
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Chat Log Viewer</h1>
+            <p>Melih AI Assistant - Konuşma Geçmişi</p>
+        </div>
+
+        <div class="controls">
+            <div class="input-group">
+                <input type="password" id="adminToken" placeholder="Admin Token girin..." />
+                <input type="number" id="logLimit" value="20" min="1" max="200" placeholder="Limit" />
+                <button onclick="loadLogs()">📊 Logları Yükle</button>
+            </div>
+            <button onclick="clearLogs()">🗑️ Temizle</button>
+        </div>
+
+        <div id="status"></div>
+        <div id="logsContainer" class="logs-container"></div>
+    </div>
+
+    <script>
+        const WORKER_ENDPOINT = 'https://melih-ai-proxy.melihkaratay.workers.dev';
+
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = message;
+            statusDiv.style.display = 'block';
+        }
+
+        function hideStatus() {
+            document.getElementById('status').style.display = 'none';
+        }
+
+        async function loadLogs() {
+            const token = document.getElementById('adminToken').value.trim();
+            const limit = document.getElementById('logLimit').value || 20;
+
+            if (!token) {
+                showStatus('⚠️ Lütfen Admin Token girin!', 'error');
+                return;
+            }
+
+            showStatus('⏳ Loglar yükleniyor...', 'info');
+
+            try {
+                const response = await fetch(`${WORKER_ENDPOINT}/logs?limit=${limit}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Admin-Token': token
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                displayLogs(data.logs);
+                showStatus(`✅ ${data.logs.length} log kaydı başarıyla yüklendi!`, 'success');
+            } catch (error) {
+                showStatus(`❌ Hata: ${error.message}`, 'error');
+                console.error('Log yükleme hatası:', error);
+            }
+        }
+
+        function displayLogs(logs) {
+            const container = document.getElementById('logsContainer');
+
+            if (!logs || logs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div>📭</div>
+                        <h3>Henüz log kaydı yok</h3>
+                        <p>Asistan ile konuşma başladığında loglar burada görünecek.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = logs.map(log => {
+                const isError = log.type === 'chat-error';
+                const typeClass = isError ? 'error' : 'success';
+                const typeText = isError ? '❌ HATA' : '✅ BAŞARILI';
+
+                return `
+                    <div class="log-entry">
+                        <div class="log-header">
+                            <span class="log-type ${typeClass}">${typeText}</span>
+                            <span class="log-timestamp">${new Date(log.timestamp).toLocaleString('tr-TR')}</span>
+                        </div>
+                        
+                        <div class="log-details">
+                            <div class="log-detail">
+                                <strong>Session ID</strong>
+                                <span>${log.sessionId || 'N/A'}</span>
+                            </div>
+                            <div class="log-detail">
+                                <strong>IP Adresi</strong>
+                                <span>${log.clientIp || 'N/A'}</span>
+                            </div>
+                            <div class="log-detail">
+                                <strong>Süre</strong>
+                                <span>${log.durationMs}ms</span>
+                            </div>
+                            <div class="log-detail">
+                                <strong>Origin</strong>
+                                <span>${log.origin || 'N/A'}</span>
+                            </div>
+                            ${log.meta?.language ? `
+                            <div class="log-detail">
+                                <strong>Dil</strong>
+                                <span>${log.meta.language}</span>
+                            </div>
+                            ` : ''}
+                            ${log.meta?.page ? `
+                            <div class="log-detail">
+                                <strong>Sayfa</strong>
+                                <span>${log.meta.page}</span>
+                            </div>
+                            ` : ''}
+                        </div>
+
+                        ${!isError && log.requestMessages && log.responseMessage ? `
+                            <div class="log-messages">
+                                ${log.requestMessages.map(msg => `
+                                    <div class="message ${msg.role}">
+                                        <div class="message-label">${msg.role === 'user' ? 'Kullanıcı' : 'Asistan'}</div>
+                                        ${msg.content}
+                                    </div>
+                                `).join('')}
+                                <div class="message assistant">
+                                    <div class="message-label">Asistan Cevabı</div>
+                                    ${log.responseMessage}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        ${isError ? `
+                            <div class="log-messages">
+                                <div class="message error">
+                                    <strong>Hata Mesajı:</strong><br>
+                                    ${log.error || 'Bilinmeyen hata'}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function clearLogs() {
+            document.getElementById('logsContainer').innerHTML = '';
+            hideStatus();
+        }
+
+        // Token'ı localStorage'dan oku (varsa)
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedToken = localStorage.getItem('admin_token');
+            if (savedToken) {
+                document.getElementById('adminToken').value = savedToken;
+            }
+
+            // Token değiştiğinde kaydet
+            document.getElementById('adminToken').addEventListener('change', (e) => {
+                localStorage.setItem('admin_token', e.target.value);
+            });
+        });
+    </script>
+</body>
+</html>
