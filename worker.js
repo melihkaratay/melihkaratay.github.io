@@ -21,14 +21,24 @@ const ALLOWED_ORIGINS = [
 // System prompt for the AI assistant
 const SYSTEM_PROMPT = "You are Melih's portfolio assistant. Answer in Turkish. Melih is a Computer Engineer and Digital Transformation Specialist skilled in .NET, C#, SQL Server, and Industrial IoT. Keep answers professional, concise, and friendly.";
 
+// Log retention (30 days)
+const LOG_RETENTION_SECONDS = 60 * 60 * 24 * 30;
+
 /**
  * Main worker event handler
  */
 export default {
     async fetch(request, env, ctx) {
+        const url = new URL(request.url);
+
+        // Admin log retrieval endpoint
+        if (url.pathname === '/logs') {
+            return handleLogsRequest(request, env);
+        }
+
         // Handle CORS preflight requests
         if (request.method === 'OPTIONS') {
-            return handleCorsPreFlight(request);
+            return handleCorsPreFlight(request, env);
         }
 
         // Only accept POST requests
@@ -44,7 +54,7 @@ export default {
 
         // Verify origin
         const origin = request.headers.get('Origin');
-        if (!origin || !ALLOWED_ORIGINS.includes(origin)) {
+        if (!isOriginAllowed(origin, env)) {
             return new Response(
                 JSON.stringify({ error: 'Unauthorized origin' }),
                 {
@@ -57,10 +67,12 @@ export default {
             );
         }
 
+        const startedAt = Date.now();
+
         try {
             // Parse request body
             const requestBody = await request.json();
-            const { messages } = requestBody;
+            const { messages, sessionId, meta } = requestBody;
 
             // Validate messages
             if (!messages || !Array.isArray(messages)) {
@@ -133,6 +145,18 @@ export default {
                 throw new Error('No message content in OpenAI response');
             }
 
+            ctx.waitUntil(logInteraction(env, {
+                type: 'chat-success',
+                origin,
+                sessionId: formatSessionId(sessionId),
+                meta: normalizeMeta(meta, request),
+                requestMessages: messages,
+                responseMessage: botMessage,
+                userAgent: request.headers.get('user-agent'),
+                clientIp: getClientIp(request),
+                durationMs: Date.now() - startedAt
+            }));
+
             // Return success response
             return new Response(
                 JSON.stringify({
@@ -150,6 +174,18 @@ export default {
             );
         } catch (error) {
             console.error('Worker error:', error);
+
+            ctx.waitUntil(logInteraction(env, {
+                type: 'chat-error',
+                origin,
+                sessionId: 'unknown',
+                meta: normalizeMeta(null, request),
+                error: error?.message || 'Unknown error',
+                userAgent: request.headers.get('user-agent'),
+                clientIp: getClientIp(request),
+                durationMs: Date.now() - startedAt
+            }));
+
             return new Response(
                 JSON.stringify({
                     error: 'Internal server error',
@@ -170,11 +206,11 @@ export default {
 /**
  * Handle CORS preflight requests
  */
-function handleCorsPreFlight(request) {
+function handleCorsPreFlight(request, env) {
     const origin = request.headers.get('Origin');
     
     // Check if origin is allowed
-    if (!origin || !ALLOWED_ORIGINS.includes(origin)) {
+    if (!isOriginAllowed(origin, env)) {
         return new Response(null, { status: 403 });
     }
 
@@ -187,4 +223,128 @@ function handleCorsPreFlight(request) {
             'Access-Control-Max-Age': '86400'
         }
     });
+}
+
+/**
+ * Combine built-in and environment-provided allowed origins.
+ */
+function getAllowedOrigins(env) {
+    const dynamicOrigins = env?.ALLOWED_ORIGINS
+        ? env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean)
+        : [];
+
+    const merged = new Set([...ALLOWED_ORIGINS, ...dynamicOrigins]);
+    return Array.from(merged);
+}
+
+function isOriginAllowed(origin, env) {
+    if (!origin) return false;
+    return getAllowedOrigins(env).includes(origin);
+}
+
+/**
+ * Persist a lightweight interaction log to KV if available.
+ */
+async function logInteraction(env, log) {
+    if (!env?.CHAT_LOGS || typeof env.CHAT_LOGS.put !== 'function') {
+        return;
+    }
+
+    const key = `log:${Date.now()}:${crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2, 10)}`;
+    const record = {
+        ...log,
+        timestamp: new Date().toISOString()
+    };
+
+    try {
+        await env.CHAT_LOGS.put(key, JSON.stringify(record), {
+            expirationTtl: LOG_RETENTION_SECONDS
+        });
+    } catch (err) {
+        console.error('Logging failed', err);
+    }
+}
+
+/**
+ * Admin endpoint to fetch recent logs (requires ADMIN_TOKEN).
+ */
+async function handleLogsRequest(request, env) {
+    if (!env?.CHAT_LOGS) {
+        return new Response(
+            JSON.stringify({ error: 'Logging storage not configured' }),
+            { status: 500, headers: { 'Content-Type': 'application/json' } }
+        );
+    }
+
+    const adminToken = env.ADMIN_TOKEN;
+    const providedToken = request.headers.get('X-Admin-Token') || new URL(request.url).searchParams.get('token');
+
+    if (!adminToken || providedToken !== adminToken) {
+        return new Response(
+            JSON.stringify({ error: 'Unauthorized' }),
+            { status: 401, headers: { 'Content-Type': 'application/json' } }
+        );
+    }
+
+    const url = new URL(request.url);
+    const limitParam = parseInt(url.searchParams.get('limit') || '50', 10);
+    const limit = Number.isFinite(limitParam) ? Math.min(Math.max(limitParam, 1), 200) : 50;
+
+    const { keys } = await env.CHAT_LOGS.list({ prefix: 'log:', limit });
+    const logs = [];
+
+    for (const key of keys) {
+        const value = await env.CHAT_LOGS.get(key.name);
+        if (value) {
+            try {
+                logs.push(JSON.parse(value));
+            } catch (err) {
+                console.error('Failed to parse log entry', err);
+            }
+        }
+    }
+
+    logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    return new Response(
+        JSON.stringify({ logs }),
+        {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': request.headers.get('Origin') || '*'
+            }
+        }
+    );
+}
+
+function normalizeMeta(meta, request) {
+    if (!meta || typeof meta !== 'object') {
+        return {
+            language: request.headers.get('Accept-Language') || 'unknown',
+            page: null,
+            referrer: request.headers.get('Referer') || null
+        };
+    }
+
+    return {
+        sessionId: formatSessionId(meta.sessionId),
+        userAgent: meta.userAgent?.toString().slice(0, 500),
+        language: meta.language || request.headers.get('Accept-Language') || 'unknown',
+        timezone: meta.timezone || null,
+        page: meta.page || null,
+        referrer: meta.referrer || request.headers.get('Referer') || null
+    };
+}
+
+function formatSessionId(sessionId) {
+    if (!sessionId || typeof sessionId !== 'string') return 'anonymous';
+    return sessionId.slice(0, 120);
+}
+
+function getClientIp(request) {
+    return request.headers.get('cf-connecting-ip')
+        || request.headers.get('x-forwarded-for')
+        || request.headers.get('x-real-ip')
+        || 'unknown';
 }

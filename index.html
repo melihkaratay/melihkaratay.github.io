@@ -935,6 +935,7 @@
 
             // Conversation history
             const conversationHistory = [];
+            const sessionId = getOrCreateSessionId();
 
             // Initialize Event Listeners
             function init() {
@@ -989,7 +990,9 @@
                             'Origin': window.location.origin
                         },
                         body: JSON.stringify({
-                            messages: conversationHistory
+                            sessionId,
+                            messages: conversationHistory,
+                            meta: buildClientMeta()
                         })
                     });
 
@@ -1068,6 +1071,38 @@
                 setTimeout(() => {
                     messagesContainer.scrollTop = messagesContainer.scrollHeight;
                 }, 0);
+            }
+
+            // Generate or reuse a per-device session id for logging
+            function getOrCreateSessionId() {
+                const storageKey = 'melih-chat-session-id';
+
+                try {
+                    const existing = localStorage.getItem(storageKey);
+                    if (existing) return existing;
+
+                    const fresh = (typeof crypto !== 'undefined' && crypto.randomUUID)
+                        ? crypto.randomUUID()
+                        : `sess-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+
+                    localStorage.setItem(storageKey, fresh);
+                    return fresh;
+                } catch (error) {
+                    console.warn('Session storage is unavailable, using ephemeral id.', error);
+                    return `sess-${Date.now()}`;
+                }
+            }
+
+            // Basic client metadata to include with each request
+            function buildClientMeta() {
+                return {
+                    sessionId,
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    page: window.location.href,
+                    referrer: document.referrer || null
+                };
             }
 
             // Initialize on DOM ready

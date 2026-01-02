@@ -3,6 +3,12 @@ main = "worker.js"
 compatibility_date = "2024-12-18"
 type = "javascript"
 
+# KV VERİTABANI BAĞLANTISI (BURAYI EKLEDİK)
+[[kv_namespaces]]
+binding = "CHAT_LOGS"
+id = "053c1e7c9f8044e2bb199ec04b56d049"
+preview_id = "053c1e7c9f8044e2bb199ec04b56d049"
+
 [env.production]
 name = "melih-ai-proxy"
 routes = [
@@ -15,8 +21,10 @@ vars = { }
 [[env.production.env_vars]]
 text_blobs = { }
 
-# Bindings (if needed in future)
-[env.production.bindings]
+# Environment variables and secrets should be set via Cloudflare Dashboard:
+# - OPENAI_API_KEY (required) 
+# - ADMIN_TOKEN (required for log retrieval)
+# - ALLOWED_ORIGINS (optional, extends default allowed origins)
 
 # ==================== SETUP INSTRUCTIONS ====================
 #
