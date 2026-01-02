@@ -31,7 +31,9 @@
                     <a href="#home" class="nav-link"><span class="hash">#</span>home</a>
                     <a href="#about-me" class="nav-link"><span class="hash">#</span>about-me</a>
                     <a href="#skills" class="nav-link"><span class="hash">#</span>skills</a>
-                    <a href="#projects" class="nav-link"><span class="hash">#</span>projects</a>
+                    <a href="#experiences" class="nav-link"><span class="hash">#</span>experiences</a>
+                    <a href="#education" class="nav-link"><span class="hash">#</span>education</a>
+                    <a href="#services" class="nav-link"><span class="hash">#</span>services</a>
                     <a href="#contacts" class="nav-link"><span class="hash">#</span>contacts</a>
                 </nav>
             </div>
@@ -84,6 +86,104 @@
         </div>
     </section>
 
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Yıl Deneyim</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Başarılı Proje</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Kurumsal Müşteri</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">%80</div>
+                    <div class="stat-label">Verimlilik Artışı</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visitor Information Section -->
+    <section class="visitor-info" id="visitor-info">
+        <div class="container">
+            <h2 class="section-title"><span class="hash">#</span>visitor-information</h2>
+            <div class="section-line"></div>
+            
+            <div class="visitor-cards">
+                <div class="visitor-card">
+                    <div class="visitor-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="visitor-label">IP Adresi</div>
+                    <div class="visitor-value" id="visitor-ip">Yükleniyor...</div>
+                </div>
+                
+                <div class="visitor-card">
+                    <div class="visitor-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="visitor-label">Konum</div>
+                    <div class="visitor-value" id="visitor-location">Yükleniyor...</div>
+                </div>
+                
+                <div class="visitor-card">
+                    <div class="visitor-icon">
+                        <i class="fas fa-browser"></i>
+                    </div>
+                    <div class="visitor-label">Tarayıcı</div>
+                    <div class="visitor-value" id="visitor-browser">Yükleniyor...</div>
+                </div>
+                
+                <div class="visitor-card">
+                    <div class="visitor-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="visitor-label">Cihaz</div>
+                    <div class="visitor-value" id="visitor-device">Yükleniyor...</div>
+                </div>
+                
+                <div class="visitor-card">
+                    <div class="visitor-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="visitor-label">İşletim Sistemi</div>
+                    <div class="visitor-value" id="visitor-os">Yükleniyor...</div>
+                </div>
+                
+                <div class="visitor-card">
+                    <div class="visitor-icon">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <div class="visitor-label">Ekran</div>
+                    <div class="visitor-value" id="visitor-screen">Yükleniyor...</div>
+                </div>
+                
+                <div class="visitor-card">
+                    <div class="visitor-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="visitor-label">Ziyaret Sayısı</div>
+                    <div class="visitor-value" id="visitor-count">Yükleniyor...</div>
+                </div>
+                
+                <div class="visitor-card">
+                    <div class="visitor-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="visitor-label">İlk Ziyaret</div>
+                    <div class="visitor-value" id="visitor-first">Yükleniyor...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section class="about" id="about-me">
         <div class="container">
@@ -104,7 +204,12 @@
                         <strong>"Kodun sahada çalışması"</strong> ilkesiyle, hem arka planda güçlü algoritmalar
                         hem de ön yüzde kullanıcı dostu arayüzler geliştiriyorum.
                     </p>
-                    <a href="#contacts" class="btn btn-outline">İletişime Geç →</a>
+                    <div class="about-cta">
+                        <a href="#contacts" class="btn btn-outline">İletişime Geç →</a>
+                        <a href="Melih_Karatay_CV.pdf" download class="btn btn-primary" title="CV'mi İndir">
+                            <i class="fas fa-download"></i> CV'ümü İndir
+                        </a>
+                    </div>
                 </div>
                 <div class="about-image">
                     <div class="image-frame">
@@ -181,68 +286,229 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
+    <!-- Experiences Section -->
+    <section class="projects" id="experiences">
         <div class="container">
-            <h2 class="section-title"><span class="hash">#</span>projects</h2>
+            <h2 class="section-title"><span class="hash">#</span>experiences</h2>
             <div class="section-line"></div>
-            <p class="section-subtitle">Profesyonel kariyerim boyunca gerçekleştirdiğim önemli projeler</p>
+            <p class="section-subtitle">Profesyonel kariyerim boyunca edindiğim deneyimler ve gerçekleştirdiğim projeler</p>
 
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-tech-stack">
-                        <span class="tech-badge">C#</span>
-                        <span class="tech-badge">Modbus</span>
-                        <span class="tech-badge">InfluxDB</span>
-                        <span class="tech-badge">WPF</span>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Bonna Premium Porselen</h3>
-                        <p class="project-role">Dijital Dönüşüm & Yazılım Uzmanı</p>
-                        <p class="project-description">
-                            Üretim sahasının dijital ikizini oluşturmak için uçtan uca IoT mimarisi kuruldu.
-                            PLC'lerden Modbus ile alınan veriler C# Worker Service'ler ile işlenip InfluxDB ve MSSQL'e
-                            yazıldı.
-                            Grafana üzerinde canlı izlenen fabrika panelleri ve WPF tabanlı operatör veri giriş
-                            ekranları geliştirildi.
-                        </p>
+            <div class="timeline">
+                <!-- Bonna Premium Porcelain -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Mayıs 2023 - Günümüz <span class="duration">(2 yıl 9 ay)</span></div>
+                        <h3 class="experience-title">Digital Transformation Specialist</h3>
+                        <h4 class="experience-company">Bonna Premium Porcelain</h4>
+                        <p class="experience-location"><i class="fas fa-map-marker-alt"></i> Pazaryeri, Bilecik, Türkiye</p>
+                        <ul class="experience-list">
+                            <li>Üretim makinelerinden veri toplamak amacıyla <strong>PLC entegrasyonları</strong> gerçekleştirdim</li>
+                            <li><strong>GP-Pro EX</strong> programı ile Pro-face HMI ekranlarını tasarlayarak operatör etkileşimlerini dijitalleştirdim</li>
+                            <li>Geliştirdiğim <strong>C# ara yazılım</strong> ile toplanan verileri MSSQL ve InfluxDB veritabanlarına aktardım</li>
+                            <li>Verileri <strong>Grafana</strong> ve web tabanlı raporlama sistemleri üzerinden görselleştirerek otomatik raporlamalar ve e-posta bildirimleri oluşturdum</li>
+                            <li>Dijitalleşme projelerinde <strong>veri toplama, süreç otomasyonu ve raporlama</strong> alanlarında aktif görev aldım</li>
+                        </ul>
+                        <div class="experience-tech">
+                            <span class="tech-badge">C#</span>
+                            <span class="tech-badge">ASP.NET</span>
+                            <span class="tech-badge">.NET</span>
+                            <span class="tech-badge">Grafana</span>
+                            <span class="tech-badge">InfluxDB</span>
+                            <span class="tech-badge">ProServer</span>
+                            <span class="tech-badge">Modbus</span>
+                            <span class="tech-badge">HMI/SCADA</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-tech-stack">
-                        <span class="tech-badge">.NET Core</span>
-                        <span class="tech-badge">Docker</span>
-                        <span class="tech-badge">SAP</span>
-                        <span class="tech-badge">Xamarin</span>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Yurtbay Seramik</h3>
-                        <p class="project-role">Yazılım Geliştirme Mühendisi</p>
-                        <p class="project-description">
-                            Kurumsal ERP ve üretim sistemleri entegrasyonu. Legacy WebForms projeleri .NET Core
-                            mimarisine
-                            taşınarak Dockerize edildi. SAP ile konuşan mobil el terminali uygulamaları geliştirildi.
-                            Kalite kontrol süreçleri dijitalleşti, kağıt kullanımı %80 azaltıldı.
-                        </p>
+                <!-- Yurtbay Seramik -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Ocak 2022 - Mayıs 2023 <span class="duration">(1 yıl 5 ay)</span></div>
+                        <h3 class="experience-title">Software Developer</h3>
+                        <h4 class="experience-company">Yurtbay Seramik</h4>
+                        <ul class="experience-list">
+                            <li>İş birimleri ile analiz toplantıları yaparak istenilen modüllerin <strong>tasarım, geliştirme ve test</strong> aşamalarında analiz desteği verdim</li>
+                            <li><strong>SAP ve PLC</strong> ile entegrasyonlar kurarak verilerin işlenmesini sağladım</li>
+                            <li><strong>Xamarin</strong> ile geliştirilmiş mobil uygulama sayesinde Kalite biriminin işlemlerini hızlandırdım</li>
+                            <li>El terminalleri için kullanımı kolaylaştıran uygulamalar geliştirdim</li>
+                            <li>SAP üzerinden entegrasyon kurularak haberleşen bir servis ile verileri otomatik olarak aldım</li>
+                            <li>Legacy WebForms projelerini <strong>.NET Core</strong> mimarisine taşıyarak <strong>Dockerize</strong> ettim</li>
+                        </ul>
+                        <div class="experience-tech">
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">C#</span>
+                            <span class="tech-badge">SQL</span>
+                            <span class="tech-badge">ASP.NET</span>
+                            <span class="tech-badge">.NET Core</span>
+                            <span class="tech-badge">Xamarin</span>
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">SAP</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-tech-stack">
-                        <span class="tech-badge">ASP.NET</span>
-                        <span class="tech-badge">SOAP/REST</span>
-                        <span class="tech-badge">KPS</span>
+                <!-- Eskişehir Ticaret Odası -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Kasım 2018 - Ocak 2022 <span class="duration">(3 yıl 3 ay)</span></div>
+                        <h3 class="experience-title">Software Developer</h3>
+                        <h4 class="experience-company">Eskişehir Ticaret Odası</h4>
+                        <p class="experience-location"><i class="fas fa-map-marker-alt"></i> Eskişehir, Türkiye</p>
+                        <ul class="experience-list">
+                            <li>Ticaret Odası'nda birimlerin ihtiyaçlarına göre uygulamalar geliştirdim ve güncel ihtiyaçlara göre düzenlemeler yaptım</li>
+                            <li><strong>Online İşlemler</strong> kapsamında Vize İşlemleri, Randevu Sistemi geliştirerek başvuru yapacaklara gelmeden süreci başlatma imkanı sağladım</li>
+                            <li>Personel sisteminde, birimler arası iş gönderme ve takip edebilme sistemi geliştirdim</li>
+                            <li><strong>Web servisi ile KPS</strong> (Kişi Paylaşım Sistemi) ve NVİ entegrasyonları gerçekleştirdim</li>
+                            <li>Yüksek trafikli web uygulamaları ve <strong>SOAP/REST</strong> servisleri geliştirdim</li>
+                        </ul>
+                        <div class="experience-tech">
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">.NET</span>
+                            <span class="tech-badge">ASP.NET</span>
+                            <span class="tech-badge">SOAP/REST</span>
+                            <span class="tech-badge">KPS</span>
+                        </div>
                     </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Eskişehir Ticaret Odası</h3>
-                        <p class="project-role">Yazılım Geliştirme Mühendisi</p>
-                        <p class="project-description">
-                            Kamu entegrasyonları ve yüksek trafikli web uygulamaları. SOAP/REST servisler aracılığıyla
-                            NVİ (Nüfus ve Vatandaşlık İşleri) ve KPS entegrasyonları sağlandı.
-                            Online üye işlem merkezi ve randevu sistemleri devreye alındı.
-                        </p>
+                </div>
+
+                <!-- Earlier Experience -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Ekim 2016 - Temmuz 2017 <span class="duration">(10 ay)</span></div>
+                        <h3 class="experience-title">Software Developer</h3>
+                        <h4 class="experience-company">Yönetim İşaretleri Danışmanlık ve Müşavirlik A.Ş. / SOM Signs Of Management</h4>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certifications Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <h2 class="section-title"><span class="hash">#</span>education</h2>
+            <div class="section-line"></div>
+            
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3 class="education-degree">Bilgisayar Mühendisliği</h3>
+                        <p class="education-school">Anadolu Üniversitesi</p>
+                        <p class="education-year">2008 - 2016</p>
+                        <p class="education-desc">Yazılım mühendisliği, veri yapıları, algoritma tasarımı, veritabanı yönetimi ve yazılım mimarisi üzerine kapsamlı eğitim aldım.</p>
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3 class="education-degree">Profesyonel Gelişim</h3>
+                        <div class="certification-list">
+                            <div class="cert-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>.NET Framework ve C# İleri Düzey</span>
+                            </div>
+                            <div class="cert-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Endüstriyel IoT ve PLC Entegrasyonları</span>
+                            </div>
+                            <div class="cert-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>SCADA/HMI Sistemleri</span>
+                            </div>
+                            <div class="cert-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Docker & Container Technologies</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title"><span class="hash">#</span>services</h2>
+            <div class="section-line"></div>
+            <p class="section-subtitle">Sunduğum profesyonel hizmetler ve uzmanlık alanları</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="service-title">IoT & Endüstriyel Otomasyon</h3>
+                    <p class="service-description">
+                        PLC entegrasyonları, Modbus/TCP iletişimi, SCADA/HMI sistemleri ve üretim verilerinin 
+                        gerçek zamanlı toplanması konusunda uzmanlık.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="service-title">MES Sistemleri</h3>
+                    <p class="service-description">
+                        Manufacturing Execution Systems (MES) danışmanlığı, üretim yönetim sistemleri geliştirme, 
+                        OEE hesaplama ve raporlama çözümleri.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="service-title">Full Stack Development</h3>
+                    <p class="service-description">
+                        .NET Core/ASP.NET backend, React.js frontend, WPF desktop uygulamaları ve 
+                        Xamarin/.NET MAUI mobil uygulama geliştirme.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="service-title">Dijital Dönüşüm Danışmanlığı</h3>
+                    <p class="service-description">
+                        Üretim tesislerinin dijitalleştirilmesi, veri odaklı karar sistemlerinin kurulması ve 
+                        süreç optimizasyonu danışmanlığı.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="service-title">Data Engineering</h3>
+                    <p class="service-description">
+                        Veri toplama sistemleri, InfluxDB/MSSQL veritabanı tasarımı, Grafana dashboard'ları 
+                        ve otomatik raporlama sistemleri.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3 class="service-title">ERP Entegrasyonları</h3>
+                    <p class="service-description">
+                        SAP, Oracle ve diğer ERP sistemleriyle entegrasyon, SOAP/REST API geliştirme ve 
+                        kurumsal sistem haberleşmeleri.
+                    </p>
                 </div>
             </div>
         </div>
@@ -597,7 +863,6 @@
             transform: scale(0.95);
         }
 
-        /* Scrollbar Styling */
         .chatbot-messages::-webkit-scrollbar {
             width: 6px;
         }

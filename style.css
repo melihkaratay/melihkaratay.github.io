@@ -512,6 +512,23 @@ section {
     .nav-link {
         font-size: 14px;
     }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .education-grid,
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline {
+        padding-left: 30px;
+    }
+
+    .timeline-dot {
+        left: -38px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -537,6 +554,36 @@ section {
         text-align: center;
         gap: 16px;
     }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .stat-number {
+        font-size: 36px;
+    }
+
+    .timeline-content {
+        padding: 20px;
+    }
+
+    .experience-title {
+        font-size: 18px;
+    }
+
+    .education-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-cta {
+        flex-direction: column;
+    }
+
+    .about-cta .btn {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -551,5 +598,447 @@ section {
 
     .code-content {
         font-size: 12px;
+    }
+}
+
+/* ===== Visitor Information Section ===== */
+.visitor-info {
+    padding: 100px 0;
+    background: var(--bg-secondary);
+}
+
+/* ===== Stats Section ===== */
+.stats-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, rgba(199, 120, 221, 0.05), rgba(30, 34, 40, 0.05));
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.stat-card {
+    background: var(--bg-primary);
+    border: 2px solid rgba(199, 120, 221, 0.3);
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 32px rgba(199, 120, 221, 0.3);
+}
+
+.stat-number {
+    font-family: 'Fira Code', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.stat-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== Timeline Styles for Experiences ===== */
+.timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary-color), transparent);
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 60px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -46px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border: 3px solid var(--bg-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(199, 120, 221, 0.3);
+}
+
+.timeline-content {
+    background: var(--code-bg);
+    border: 1px solid rgba(199, 120, 221, 0.2);
+    border-radius: 8px;
+    padding: 28px;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 24px rgba(199, 120, 221, 0.15);
+    transform: translateX(5px);
+}
+
+.timeline-date {
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+}
+
+.duration {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.experience-title {
+    font-size: 22px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.experience-company {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.experience-location {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.experience-location i {
+    margin-right: 6px;
+    color: var(--primary-color);
+}
+
+.experience-list {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.experience-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.experience-list li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.experience-list strong {
+    color: var(--text-primary);
+}
+
+.experience-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+/* ===== Education Section ===== */
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin-top: 48px;
+}
+
+.education-card {
+    background: var(--code-bg);
+    border: 1px solid rgba(199, 120, 221, 0.2);
+    border-radius: 12px;
+    padding: 32px;
+    transition: all 0.3s ease;
+}
+
+.education-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 24px rgba(199, 120, 221, 0.15);
+    transform: translateY(-5px);
+}
+
+.education-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(199, 120, 221, 0.2), rgba(171, 178, 191, 0.1));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.education-degree {
+    font-size: 22px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.education-school {
+    font-size: 16px;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.education-year {
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.education-desc {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.certification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cert-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-secondary);
+}
+
+.cert-item i {
+    color: var(--primary-color);
+    font-size: 16px;
+}
+
+/* ===== Services Section ===== */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 48px;
+}
+
+.service-card {
+    background: var(--code-bg);
+    border: 1px solid rgba(199, 120, 221, 0.2);
+    border-radius: 12px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.service-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 24px rgba(199, 120, 221, 0.15);
+    transform: translateY(-5px);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(199, 120, 221, 0.2), rgba(171, 178, 191, 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: var(--primary-color);
+    margin: 0 auto 24px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-title {
+    font-size: 20px;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.service-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    text-align: left;
+}
+
+/* About CTA buttons */
+.about-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+/* ===== Visitor Information Section ===== */
+.visitor-info {
+    padding: 100px 0;
+    background: var(--bg-secondary);
+}
+
+.visitor-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+}
+
+.visitor-card {
+    background: var(--bg-primary);
+    border: 1px solid rgba(199, 120, 221, 0.2);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.visitor-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.visitor-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 24px rgba(199, 120, 221, 0.2);
+}
+
+.visitor-card:hover::before {
+    transform: scaleX(1);
+}
+
+.visitor-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, rgba(199, 120, 221, 0.1), rgba(171, 178, 191, 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.visitor-card:hover .visitor-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, rgba(199, 120, 221, 0.2), rgba(171, 178, 191, 0.2));
+}
+
+.visitor-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.visitor-value {
+    font-family: 'Fira Code', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+/* Loading Animation for Visitor Cards */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.visitor-value:has(+ .loading) {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Responsive for Visitor Cards */
+@media (max-width: 768px) {
+    .visitor-cards {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+    }
+    
+    .visitor-card {
+        padding: 20px;
+    }
+    
+    .visitor-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .visitor-cards {
+        grid-template-columns: 1fr;
     }
 }
